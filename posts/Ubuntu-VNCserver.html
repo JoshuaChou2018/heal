@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ubuntu配置VNCServer，一定能用，不白屏灰屏 | Healthcare Ethical AI Lab (HEAL)</title>
+  <meta name="description" content="Healthcare Ethical AI Lab (HEAL) at CUHK-Shenzhen — AI-driven intelligent healthcare, bioinformatics, and ethical trustworthy AI.">
+  <script>
+    (function() {
+      try {
+        const html = document.documentElement;
+        html.classList.add('theme-loading');
+        const saved = localStorage.getItem('heal-theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = saved ? saved : (prefersDark ? 'dark' : 'light');
+        html.setAttribute('data-theme', theme);
+        window.addEventListener('DOMContentLoaded', function() {
+          window.setTimeout(function() { html.classList.remove('theme-loading'); }, 100);
+        });
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar-container">
+    <a href="/index.html" class="navbar-brand">
+      <span>HEAL</span>
+    </a>
+    <div class="navbar-links">
+    <a href="/index.html" class="">Home</a>
+    <a href="/about.html" class="">About Me</a>
+    <a href="/publications.html" class="">Publications</a>
+    <a href="/mentoring.html" class="">Mentoring</a>
+    <a href="/teaching.html" class="">Teaching</a>
+    <a href="/posts.html" class="active">Posts</a>
+    <a href="/life.html" class="">Life</a>
+    <a href="/gallery.html" class="">Gallery</a>
+    <a href="/openings.html" class="">Openings</a>
+    <a href="/calendar.html" class="">Calendar</a>
+    </div>
+    <div class="navbar-actions">
+      <button class="search-toggle" aria-label="Search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="theme-toggle" aria-label="Toggle theme"></button>
+      <button class="mobile-menu-btn" aria-label="Menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="search-overlay">
+  <div class="search-container">
+    <div class="search-input-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" class="search-input" placeholder="Search posts, life, and pages..." autocomplete="off">
+      <button class="search-close" aria-label="Close search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="search-results"></div>
+  </div>
+</div>
+<header class="page-header"><div class="max-w-7xl mx-auto px-6"><h1>Ubuntu配置VNCServer，一定能用，不白屏灰屏</h1><p class="text-gray-400 mt-2 font-mono text-sm">2024-07-02</p></div></header><main class="page-content"><ul>
+<li>安装基础软件</li>
+</ul>
+<p>```
+  sudo apt update
+  sudo apt-get upgrade
+  sudo apt-get install gnome-panel gnome-settings-daemon metacity nautilus gnome-terminal
+  sudo apt install tightvncserver
+  vncserver</p>
+<p>注: 在防火墙上打开 VNC Server 的监听端口
+  VNC Server 用到了三个端口：5801(<em>)、5901(</em>)、6001
+  ```</p>
+<ul>
+<li>修改~/.vnc/xstartup</li>
+</ul>
+<p>```
+  #!/bin/bash
+  export $(dbus-launch)
+  export XKL_XMODMAP_DISABLE=1
+  export XDG_CURRENT_DESKTOP="GNOME-Flashback:Unity"
+  export XDG_MENU_PREFIX="gnome-flashback-"
+  unset SESSION_MANAGER</p>
+<p>gnome-panel &amp;
+  gnome-settings-daemon &amp;
+  metacity &amp;
+  nautilus &amp;
+  gnome-terminal &amp;</p>
+<p># [ -x /etc/vnc/xstartup ] &amp;&amp; exec /etc/vnc/xstartup
+  # [ -r $HOME/.Xresources ] &amp;&amp; xrdb $HOME/.Xresources</p>
+<p>autocutsel -fork
+  xrdb $HOME/.Xresources
+  xsetroot -solid grey
+  vncconfig -iconic &amp;
+  x-terminal-emulator -geometry 80x24+10+10 -ls -title "$VNCDESKTOP Desktop" &amp;
+  gnome-session --session=gnome-flashback-metacity --disable-acceleration-check --debug &amp;
+  ```</p>
+<ul>
+<li>启动</li>
+</ul>
+<p><code>chmod +x ~/.vnc/xstartup
+  vncserver :1</code></p>
+<h2 id="-httpsleimaogithubioblogremote-linux-desktop">机器无显示屏情况-设置虚拟显示屏 [转自：https://leimao.github.io/blog/Remote-Linux-Desktop/]</h2>
+<h3 id="set-up-remote-linux-desktop">Set Up Remote Linux Desktop</h3>
+<h3 id="x-forwarding">X Forwarding</h3>
+<p>We have to first enable X forwarding.</p>
+<p>We SSH to the remote Linux computer with <code>-XC</code> where <code>X</code> is the X service and <code>C</code> allows data compression.</p>
+<pre><code>$ ssh -XC leimao@192.168.0.23
+Welcome to Ubuntu 18.04.5 LTS (GNU/Linux 4.9.201-tegra aarch64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+This system has been minimized by removing packages and content that are
+not required on a system that users do not log into.
+
+To restore this content, you can run the 'unminimize' command.
+
+
+
+Last login: Sat May 15 09:18:28 2021 from 192.168.0.19
+/usr/bin/xauth:  file /home/leimao/.Xauthority does not exist
+</code></pre>
+<p>We install <code>xauth</code> if it has not been installed on the remote Linux computer.</p>
+<pre><code>$ sudo apt update
+$ sudo apt install -y xauth
+</code></pre>
+<p>Make sure <code>X11Forwarding</code> is <code>yes</code> in <code>/etc/ssh/sshd_config</code>.</p>
+<pre><code>$ cat /etc/ssh/sshd_config | grep X11Forwarding
+X11Forwarding yes
+</code></pre>
+<p>Restart OpenSSH.</p>
+<pre><code>sudo systemctl restart sshd
+</code></pre>
+<p>Confirm X forwarding is enabled.</p>
+<pre><code>$ echo $DISPLAY
+localhost:10.0
+</code></pre>
+<p>Quick test X forwarding with X applications.</p>
+<pre><code>$ sudo apt install -y x11-apps
+$ xclock
+</code></pre>
+<p>The GUI of the X applications will show up on our local computer.</p>
+<p>We could also try FireFox browser.</p>
+<pre><code>$ sudo apt install -y firefox
+$ firefox
+</code></pre>
+<h3 id="linux-desktop-forwarding">Linux Desktop Forwarding</h3>
+<p>We have run single X applications successfully. Can we forward the entire remote Linux desktop? Sure, we can.</p>
+<p>We will have to install the following dependencies.</p>
+<pre><code>$ sudo touch /dev/fuse
+$ sudo apt install -y xfce4 xfce4-goodies gnome-icon-theme libcanberra-gtk-module
+</code></pre>
+<p>Run the following command on the remote Linux computer while we are still <code>ssh -X</code> in.</p>
+<pre><code>$ xfce4-session
+</code></pre>
+<p>The forwarded desktop will show up on our local computer.</p>
+<p>Opening X applications from the forwarded desktop is fine. But we were not able to open terminal to run commands.</p>
+<h3 id="linux-desktop-forwarding-via-vnc">Linux Desktop Forwarding via VNC</h3>
+<p>A better way to forward the Linux Desktop is to use VNC service.</p>
+<p>To install the VNC server, we will install <code>tightvncserver</code> on the remote Linux computer.</p>
+<pre><code>$ sudo apt install -y tightvncserver
+</code></pre>
+<p>Then we could start a virtual desktop with an id of <code>1</code>.</p>
+<pre><code>$ vncserver :1 -geometry 1920x1080 -depth 24
+</code></pre>
+<p>We could then connect to the remote Linux desktop using VNC client software on our local computer.</p>
+<p><a href="https://remmina.org/">Remmina</a> is installed by default on my local Ubuntu 20.04 LTS. Here we just have to input the remote Linux computer IP address with the VNC virtual desktop id, and press <code>Enter</code>. </p>
+<p><img alt="Remmina" src="https://leimao.github.io/images/blog/2021-06-30-Remote-Linux-Desktop/remmina.png" /></p>
+<p>Remmina</p>
+<p>The connection was successful. However, we only see gray screen and could not do anything.</p>
+<p>To fix this problem, we disconnect the VNC connection and kill the virtual desktop.</p>
+<pre><code>$ vncserver -kill :1
+</code></pre>
+<p>We will install <code>lxde</code> on the remote Linux computer.</p>
+<pre><code>$ sudo apt install -y lxde
+</code></pre>
+<p>We will modify the <code>~/.vnc/xstartup</code> by adding <code>/usr/bin/startlxde</code> to it. The modified file will look like this.</p>
+<pre><code>$ cat ~/.vnc/xstartup 
+#!/bin/sh
+
+xrdb $HOME/.Xresources
+xsetroot -solid grey
+#x-terminal-emulator -geometry 80x24+10+10 -ls -title &quot;$VNCDESKTOP Desktop&quot; &amp;
+#x-window-manager &amp;
+# Fix to make GNOME work
+export XKL_XMODMAP_DISABLE=1
+/etc/X11/Xsession
+/usr/bin/startlxde
+</code></pre>
+<p>Finally, restart VNC server.</p>
+<pre><code>$ vncserver :1 -geometry 1920x1080 -depth 24
+</code></pre>
+<p>This time, the remote Linux desktop shows correctly in Remmina.</p>
+<p><img alt="Remote Linux Desktop" src="https://leimao.github.io/images/blog/2021-06-30-Remote-Linux-Desktop/vnc.png" /></p>
+<p>Remote Linux Desktop</p>
+<p>There are some inconvenience that copy and paste text between the local computer and the remote desktop does not work. To fix this problem, again, we disconnect the VNC connection and kill the virtual desktop.</p>
+<pre><code>$ vncserver -kill :1
+</code></pre>
+<p>We will install <code>autocutsel</code> on the remote Linux computer.</p>
+<pre><code>$ sudo apt install -y autocutsel
+</code></pre>
+<p>We will modify the <code>~/.vnc/xstartup</code> by adding <code>autocutsel -fork</code> to it. The modified file will look like this.</p>
+<pre><code>$ cat ~/.vnc/xstartup 
+#!/bin/sh
+
+xrdb $HOME/.Xresources
+xsetroot -solid grey
+autocutsel -fork
+#x-terminal-emulator -geometry 80x24+10+10 -ls -title &quot;$VNCDESKTOP Desktop&quot; &amp;
+#x-window-manager &amp;
+# Fix to make GNOME work
+export XKL_XMODMAP_DISABLE=1
+/etc/X11/Xsession
+/usr/bin/startlxde
+</code></pre>
+<p>Finally, restart VNC server.</p>
+<pre><code>$ vncserver :1 -geometry 1920x1080 -depth 24
+</code></pre>
+<p>Now, we could copy and paste easily between the local computer and the remote desktop.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://blog.ssdnodes.com/blog/remote-linux-desktop-vps-ssh-vnc/">Remote Linux Desktop on Your VPS with SSH and VNC</a></li>
+<li><a href="https://youtu.be/_8YZst2x9GE">Grey Screen Comes on Connecting to VNC Server</a></li>
+<li><a href="https://leimao.github.io/blog/Running-X-Client-Using-Virtual-X-Server-Xvfb/">Running X Client Using Virtual X Server Xvfb</a></li>
+<li><a href="https://youtu.be/npiX-11kBUU">Raspberry Pi: Enabling Copy and Paste over VNC</a></li>
+<li>https://leimao.github.io/blog/Remote-Linux-Desktop/</li>
+</ul></main><footer class="footer">
+  <div class="footer-content">
+    <div>
+      <h4>Healthcare Ethical AI Lab (HEAL)</h4>
+      <p>School of Data Science<br>The Chinese University of Hong Kong, Shenzhen</p>
+      <p>Email: <a href="mailto:juexiao.zhou@gmail.com">juexiao.zhou@gmail.com</a></p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <p><a href="/about.html">About</a></p>
+      <p><a href="/publications.html">Publications</a></p>
+      <p><a href="/mentoring.html">Mentoring</a></p>
+      <p><a href="/openings.html">Openings</a></p>
+      <p><a href="/calendar.html">Calendar</a></p>
+    </div>
+    <div>
+      <h4>Connect</h4>
+      <p><a href="https://github.com/JoshuaChou2018" target="_blank">GitHub</a></p>
+      <p><a href="https://scholar.google.com/citations?hl=en&user=g9jpQqEAAAAJ" target="_blank">Google Scholar</a></p>
+      <p><a href="https://www.linkedin.com/in/joshuachou2017/" target="_blank">LinkedIn</a></p>
+      <p><a href="https://orcid.org/0000-0002-6739-6236" target="_blank">ORCID</a></p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2020–2026 Healthcare Ethical AI Lab (HEAL). All rights reserved.</p>
+  </div>
+</footer>
+<button class="back-to-top" aria-label="Back to top">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+<script src="https://cdn.jsdelivr.net/npm/typeit@8.7.1/dist/index.umd.js"></script>
+<script src="/assets/js/main.js"></script>
+</body>
+</html>
