@@ -1,12 +1,172 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url="/posts/lc76-Minimum-Window-Substring/">
-  <link rel="canonical" href="/posts/lc76-Minimum-Window-Substring/">
-  <title>Moved</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lc76. Minimum Window Substring | Healthcare Ethical AI Lab (HEAL)</title>
+  <meta name="description" content="Healthcare Ethical AI Lab (HEAL) at CUHK-Shenzhen — AI-driven intelligent healthcare, bioinformatics, and ethical trustworthy AI.">
+  <script>
+    (function() {
+      try {
+        const html = document.documentElement;
+        html.classList.add('theme-loading');
+        const saved = localStorage.getItem('heal-theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = saved ? saved : (prefersDark ? 'dark' : 'light');
+        html.setAttribute('data-theme', theme);
+        window.addEventListener('DOMContentLoaded', function() {
+          window.setTimeout(function() { html.classList.remove('theme-loading'); }, 100);
+        });
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
 </head>
 <body>
-  <p>This page has moved to <a href="/posts/lc76-Minimum-Window-Substring/">/posts/lc76-Minimum-Window-Substring/</a>.</p>
+<nav class="navbar">
+  <div class="navbar-container">
+    <a href="/index.html" class="navbar-brand">
+      <span>HEAL</span>
+    </a>
+    <div class="navbar-links">
+    <a href="/index.html" class="">Home</a>
+    <a href="/about.html" class="">About Me</a>
+    <a href="/publications.html" class="">Publications</a>
+    <a href="/posts.html" class="active">Posts</a>
+    <a href="/life.html" class="">Life</a>
+    <a href="/gallery.html" class="">Gallery</a>
+    <a href="/openings.html" class="">Openings</a>
+    <a href="/calendar.html" class="">Calendar</a>
+    </div>
+    <div class="navbar-actions">
+      <button class="search-toggle" aria-label="Search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="theme-toggle" aria-label="Toggle theme"></button>
+      <button class="mobile-menu-btn" aria-label="Menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="search-overlay">
+  <div class="search-container">
+    <div class="search-input-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" class="search-input" placeholder="Search posts, life, and pages..." autocomplete="off">
+      <button class="search-close" aria-label="Close search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="search-results"></div>
+  </div>
+</div>
+<main class="page-content"><p>Given two strings <code>s</code> and <code>t</code> of lengths <code>m</code> and <code>n</code> respectively, return <em>the </em><em>minimum window substring</em><em> of</em> <code>s</code> <em>such that every character in</em> <code>t</code> (including duplicates) is included in the window. If there is no such substring, return the empty string <code>""</code>.</p>
+<p>The testcases will be generated such that the answer is <strong>unique</strong>.</p>
+<p>A <strong>substring</strong> is a contiguous sequence of characters within the string.</p>
+<p><strong>Example 1:</strong></p>
+<pre><code>Input: s = &quot;ADOBECODEBANC&quot;, t = &quot;ABC&quot;
+Output: &quot;BANC&quot;
+Explanation: The minimum window substring &quot;BANC&quot; includes 'A', 'B', and 'C' from string t.
+</code></pre>
+<p><strong>Example 2:</strong></p>
+<pre><code>Input: s = &quot;a&quot;, t = &quot;a&quot;
+Output: &quot;a&quot;
+Explanation: The entire string s is the minimum window.
+</code></pre>
+<p><strong>Example 3:</strong></p>
+<pre><code>Input: s = &quot;a&quot;, t = &quot;aa&quot;
+Output: &quot;&quot;
+Explanation: Both 'a's from t must be included in the window.
+Since the largest window of s only has one 'a', return empty string.
+</code></pre>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>m == s.length</code></li>
+<li><code>n == t.length</code></li>
+<li><code>1 &lt;= m, n &lt;= 105</code></li>
+<li><code>s</code> and <code>t</code> consist of uppercase and lowercase English letters.</li>
+</ul>
+<h5 id="_1">解题思路</h5>
+<p>这道题要求我们返回字符串 s中包含字符串 t 的全部字符的最小窗口，我们利用滑动窗口的思想解决这个问题。因此我们需要两个哈希表，hs哈希表维护的是s字符串中滑动窗口中各个字符出现多少次，ht哈希表维护的是t字符串各个字符出现多少次。如果hs哈希表中包含ht哈希表中的所有字符，并且对应的个数都不小于ht哈希表中各个字符的个数，那么说明当前的窗口是可行的，可行中的长度最短的滑动窗口就是答案。</p>
+<p><img alt="image.png" src="https://cdn.jsdelivr.net/gh/JoshuaChou2018/oss@main/uPic/1627392480-ABjwBs-image.3mRxFv.png" /></p>
+<p>过程如下：</p>
+<p>1、遍历t字符串，用ht哈希表记录t字符串各个字符出现的次数。</p>
+<p><img alt="&lt;img src=&quot;力扣500题刷题笔记.assets/image-20210710122600263.png&quot; alt=&quot;image-20210710122600263&quot; style=&quot;zoom:67%;&quot; /&gt;" src="https://cdn.jsdelivr.net/gh/JoshuaChou2018/oss@main/uPic/1626094551-vODlam-file_1626094550107.J0quVF.png" /></p>
+<p>2、定义两个指针j和i，j指针用于收缩窗口，i指针用于延伸窗口，则区间[j,i]表示当前滑动窗口。首先让i和j指针都指向字符串s开头，然后枚举整个字符串s ，枚举过程中，不断增加i使滑动窗口增大，相当于向右扩展滑动窗口。</p>
+<p><img alt="&lt;img src=&quot;力扣500题刷题笔记.assets/image-20210710121027770.png&quot; alt=&quot;image-20210710121027770&quot; style=&quot;zoom:67%;&quot; /&gt;" src="https://cdn.jsdelivr.net/gh/JoshuaChou2018/oss@main/uPic/1626094551-FNKtMc-file_1626094550122.WxE42X.png" /></p>
+<p>3、每次向右扩展滑动窗口一步，将s[i]加入滑动窗口中，而新加入了s[i]，相当于滑动窗口维护的字符数加一，即hs[s[i]]++。</p>
+<p><img alt="&lt;img src=&quot;力扣500题刷题笔记.assets/image-20210710122648338.png&quot; alt=&quot;image-20210710122648338&quot; style=&quot;zoom: 67%;&quot; /&gt;" src="https://cdn.jsdelivr.net/gh/JoshuaChou2018/oss@main/uPic/1626094551-RbOYEW-file_1626094550125.ZdlAPi.png" /></p>
+<p>4、对于新加入的字符s[i],如果hs[s[i]] &lt;= ht[s[i]]，说明当前新加入的字符s[i]是必需的，且还未到达字符串t所要求的数量。我们还需要事先定义一个cnt变量， cnt维护的是s字符串[j,i]区间中满足t字符串的元素的个数，记录相对应字符的总数。新加入的字符s[i]必需，则cnt++。</p>
+<p>5、我们向右扩展滑动窗口的同时也不能忘记收缩滑动窗口。因此当hs[s[j]] &gt; ht[s[j]时，说明hs哈希表中s[j]的数量多于ht哈希表中s[j]的数量，此时我们就需要向右收缩滑动窗口，j++并使hs[s[j]]--，即hs[s[j ++ ]] --。</p>
+<p>6、当cnt == t.size时，说明此时滑动窗口包含符串 t 的全部字符。我们重复上述过程找到最小窗口即为答案。</p>
+<p><img alt="image.png" src="https://cdn.jsdelivr.net/gh/JoshuaChou2018/oss@main/uPic/1627392545-pNYyEm-image.pFgkQx.png" /></p>
+<p>时间复杂度分析： 两个指针都严格递增，最多移动 n 次，所以总时间复杂度是 O(n)。</p>
+<p>作者：lin-shen-shi-jian-lu-k</p>
+<p>链接：https://leetcode-cn.com/problems/minimum-window-substring/solution/leetcode-76-zui-xiao-fu-gai-zi-chuan-cja-lmqz/</p>
+<h5 id="answer">Answer</h5>
+<pre><code class="language-python">from collections import defaultdict
+
+class Solution:
+    def minWindow(self, s, t):
+        if len(s)&lt;len(t):
+            return &quot;&quot;
+        hs, ht = defaultdict(int), defaultdict(int)
+        for chr in t:
+            ht[chr] += 1
+        res = &quot;&quot; 
+        left, right = 0, 0
+        cnt = 0
+        while right&lt;len(s):
+            hs[s[right]] += 1
+            if hs[s[right]] &lt;= ht[s[right]]:
+                cnt += 1
+            while left&lt;=right and hs[s[left]] &gt; ht[s[left]]:
+                hs[s[left]] -= 1
+                left += 1
+            if cnt == len(t):
+                if not res or right-left+1&lt;len(res):
+                    res = s[left:right+1]
+            right += 1
+        return res
+</code></pre></main><footer class="footer">
+  <div class="footer-content">
+    <div>
+      <h4>Healthcare Ethical AI Lab (HEAL)</h4>
+      <p>School of Data Science<br>The Chinese University of Hong Kong, Shenzhen</p>
+      <p>Email: <a href="mailto:juexiao.zhou@gmail.com">juexiao.zhou@gmail.com</a></p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <p><a href="/about.html">About</a></p>
+      <p><a href="/publications.html">Publications</a></p>
+      <p><a href="/openings.html">Openings</a></p>
+      <p><a href="/calendar.html">Calendar</a></p>
+    </div>
+    <div>
+      <h4>Connect</h4>
+      <p><a href="https://github.com/JoshuaChou2018" target="_blank">GitHub</a></p>
+      <p><a href="https://scholar.google.com/citations?hl=en&user=g9jpQqEAAAAJ" target="_blank">Google Scholar</a></p>
+      <p><a href="https://www.linkedin.com/in/joshuachou2017/" target="_blank">LinkedIn</a></p>
+      <p><a href="https://orcid.org/0000-0002-6739-6236" target="_blank">ORCID</a></p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2020–2026 Healthcare Ethical AI Lab (HEAL). All rights reserved.</p>
+  </div>
+</footer>
+<button class="back-to-top" aria-label="Back to top">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+<script src="https://cdn.jsdelivr.net/npm/typeit@8.7.1/dist/index.umd.js"></script>
+<script src="/assets/js/main.js"></script>
 </body>
 </html>

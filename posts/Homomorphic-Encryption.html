@@ -1,12 +1,133 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url="/posts/Homomorphic-Encryption/">
-  <link rel="canonical" href="/posts/Homomorphic-Encryption/">
-  <title>Moved</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homomorphic Encryption | Healthcare Ethical AI Lab (HEAL)</title>
+  <meta name="description" content="Healthcare Ethical AI Lab (HEAL) at CUHK-Shenzhen — AI-driven intelligent healthcare, bioinformatics, and ethical trustworthy AI.">
+  <script>
+    (function() {
+      try {
+        const html = document.documentElement;
+        html.classList.add('theme-loading');
+        const saved = localStorage.getItem('heal-theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = saved ? saved : (prefersDark ? 'dark' : 'light');
+        html.setAttribute('data-theme', theme);
+        window.addEventListener('DOMContentLoaded', function() {
+          window.setTimeout(function() { html.classList.remove('theme-loading'); }, 100);
+        });
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
 </head>
 <body>
-  <p>This page has moved to <a href="/posts/Homomorphic-Encryption/">/posts/Homomorphic-Encryption/</a>.</p>
+<nav class="navbar">
+  <div class="navbar-container">
+    <a href="/index.html" class="navbar-brand">
+      <span>HEAL</span>
+    </a>
+    <div class="navbar-links">
+    <a href="/index.html" class="">Home</a>
+    <a href="/about.html" class="">About Me</a>
+    <a href="/publications.html" class="">Publications</a>
+    <a href="/posts.html" class="active">Posts</a>
+    <a href="/life.html" class="">Life</a>
+    <a href="/gallery.html" class="">Gallery</a>
+    <a href="/openings.html" class="">Openings</a>
+    <a href="/calendar.html" class="">Calendar</a>
+    </div>
+    <div class="navbar-actions">
+      <button class="search-toggle" aria-label="Search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="theme-toggle" aria-label="Toggle theme"></button>
+      <button class="mobile-menu-btn" aria-label="Menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="search-overlay">
+  <div class="search-container">
+    <div class="search-input-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" class="search-input" placeholder="Search posts, life, and pages..." autocomplete="off">
+      <button class="search-close" aria-label="Close search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="search-results"></div>
+  </div>
+</div>
+<main class="page-content"><h2 id="outsourcing-computation-privately">Outsourcing computation, privately</h2>
+<p><img alt="image-20220919154446784" src="https://cdn.jsdelivr.net/gh/JoshuaChou2018/oss@main/uPic/image-20220919154446784.aYwPWN.png" /></p>
+<p>Homomorphic evaluation function:</p>
+<p>Eval: f, Enc(x) -&gt; Enc(f(x))</p>
+<h2 id="fully-homomorphic-encryption">Fully homomorphic encryption</h2>
+<p><img alt="image-20220919154723892" src="https://cdn.jsdelivr.net/gh/JoshuaChou2018/oss@main/uPic/image-20220919154723892.p8PeXK.png" /></p>
+<p><strong>Fully</strong> homomorphic = correctness for <strong>any</strong> efficient f = correctness for <strong>universal</strong> set</p>
+<h3 id="approximate-eigenvector-method">Approximate eigenvector method</h3>
+<p><img alt="image-20220919160158938" src="https://cdn.jsdelivr.net/gh/JoshuaChou2018/oss@main/uPic/image-20220919160158938.DZqLdh.png" /></p>
+<p>基于GSW13的特征向量的构造，我们可以在ciphertext上计算加法和乘法，然后可以通过secret key恢复出message的计算结果。但是这个方法不安全，因为特征向量很容易被找到。</p>
+<p><strong>idea：</strong>使用approximate eigenvectors，在secret key右乘cipher text</p>
+<p><img alt="image-20220919160511119" src="https://cdn.jsdelivr.net/gh/JoshuaChou2018/oss@main/uPic/image-20220919160511119.ZDDasR.png" /></p>
+<p><img alt="image-20220919162526756" src="https://cdn.jsdelivr.net/gh/JoshuaChou2018/oss@main/uPic/image-20220919162526756.EzrmQ6.png" /></p>
+<p><img alt="image-20220919162834463" src="https://cdn.jsdelivr.net/gh/JoshuaChou2018/oss@main/uPic/image-20220919162834463.0N5n69.png" /></p>
+<h3 id="learning-with-errors-lwe-r05">Learning with errors (LWE) R05</h3>
+<p><img alt="image-20220919190114289" src="https://cdn.jsdelivr.net/gh/JoshuaChou2018/oss@main/uPic/image-20220919190114289.FJ89eg.png" /></p>
+<h3 id="rearranging-notation"><strong>Rearranging notation</strong></h3>
+<p><img alt="image-20220919190916495" src="https://cdn.jsdelivr.net/gh/JoshuaChou2018/oss@main/uPic/image-20220919190916495.flSCYd.png" /></p>
+<p><strong>basic idea: ** we have a matrix A, we can generate a matrix  s, such that </strong>sA=$\eta$**</p>
+<p><img alt="image-20220919191541347" src="https://cdn.jsdelivr.net/gh/JoshuaChou2018/oss@main/uPic/image-20220919191541347.7kqUzm.png" /></p>
+<h3 id="encryption-scheme-from-lwe">Encryption scheme from LWE</h3>
+<h4 id="encryption">Encryption</h4>
+<p><img alt="image-20220919191851050" src="https://cdn.jsdelivr.net/gh/JoshuaChou2018/oss@main/uPic/image-20220919191851050.sVByoT.png" /></p>
+<h4 id="decryption">Decryption</h4>
+<p><img alt="image-20220919192128171" src="https://cdn.jsdelivr.net/gh/JoshuaChou2018/oss@main/uPic/image-20220919192128171.9naakJ.png" /></p>
+<p>it can be generalized to matrices.</p>
+<h4 id="on-matrices">On matrices</h4>
+<p><img alt="image-20220919192253181" src="https://cdn.jsdelivr.net/gh/JoshuaChou2018/oss@main/uPic/image-20220919192253181.9ImI1D.png" /></p>
+<h2 id="ref">Ref</h2>
+<p>https://www.youtube.com/watch?v=O8IvJAIvGJo</p></main><footer class="footer">
+  <div class="footer-content">
+    <div>
+      <h4>Healthcare Ethical AI Lab (HEAL)</h4>
+      <p>School of Data Science<br>The Chinese University of Hong Kong, Shenzhen</p>
+      <p>Email: <a href="mailto:juexiao.zhou@gmail.com">juexiao.zhou@gmail.com</a></p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <p><a href="/about.html">About</a></p>
+      <p><a href="/publications.html">Publications</a></p>
+      <p><a href="/openings.html">Openings</a></p>
+      <p><a href="/calendar.html">Calendar</a></p>
+    </div>
+    <div>
+      <h4>Connect</h4>
+      <p><a href="https://github.com/JoshuaChou2018" target="_blank">GitHub</a></p>
+      <p><a href="https://scholar.google.com/citations?hl=en&user=g9jpQqEAAAAJ" target="_blank">Google Scholar</a></p>
+      <p><a href="https://www.linkedin.com/in/joshuachou2017/" target="_blank">LinkedIn</a></p>
+      <p><a href="https://orcid.org/0000-0002-6739-6236" target="_blank">ORCID</a></p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2020–2026 Healthcare Ethical AI Lab (HEAL). All rights reserved.</p>
+  </div>
+</footer>
+<button class="back-to-top" aria-label="Back to top">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+<script src="https://cdn.jsdelivr.net/npm/typeit@8.7.1/dist/index.umd.js"></script>
+<script src="/assets/js/main.js"></script>
 </body>
 </html>

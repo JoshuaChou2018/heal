@@ -1,12 +1,193 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url="/posts/lc973K_Closest_Points_to_Origin/">
-  <link rel="canonical" href="/posts/lc973K_Closest_Points_to_Origin/">
-  <title>Moved</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lc973. K Closest Points to Origin | Healthcare Ethical AI Lab (HEAL)</title>
+  <meta name="description" content="Healthcare Ethical AI Lab (HEAL) at CUHK-Shenzhen — AI-driven intelligent healthcare, bioinformatics, and ethical trustworthy AI.">
+  <script>
+    (function() {
+      try {
+        const html = document.documentElement;
+        html.classList.add('theme-loading');
+        const saved = localStorage.getItem('heal-theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = saved ? saved : (prefersDark ? 'dark' : 'light');
+        html.setAttribute('data-theme', theme);
+        window.addEventListener('DOMContentLoaded', function() {
+          window.setTimeout(function() { html.classList.remove('theme-loading'); }, 100);
+        });
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
 </head>
 <body>
-  <p>This page has moved to <a href="/posts/lc973K_Closest_Points_to_Origin/">/posts/lc973K_Closest_Points_to_Origin/</a>.</p>
+<nav class="navbar">
+  <div class="navbar-container">
+    <a href="/index.html" class="navbar-brand">
+      <span>HEAL</span>
+    </a>
+    <div class="navbar-links">
+    <a href="/index.html" class="">Home</a>
+    <a href="/about.html" class="">About Me</a>
+    <a href="/publications.html" class="">Publications</a>
+    <a href="/posts.html" class="active">Posts</a>
+    <a href="/life.html" class="">Life</a>
+    <a href="/gallery.html" class="">Gallery</a>
+    <a href="/openings.html" class="">Openings</a>
+    <a href="/calendar.html" class="">Calendar</a>
+    </div>
+    <div class="navbar-actions">
+      <button class="search-toggle" aria-label="Search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="theme-toggle" aria-label="Toggle theme"></button>
+      <button class="mobile-menu-btn" aria-label="Menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="search-overlay">
+  <div class="search-container">
+    <div class="search-input-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" class="search-input" placeholder="Search posts, life, and pages..." autocomplete="off">
+      <button class="search-close" aria-label="Close search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="search-results"></div>
+  </div>
+</div>
+<main class="page-content"><p>Given an array of <code>points</code> where <code>points[i] = [xi, yi]</code> represents a point on the <strong>X-Y</strong> plane and an integer <code>k</code>, return the <code>k</code> closest points to the origin <code>(0, 0)</code>.</p>
+<p>The distance between two points on the <strong>X-Y</strong> plane is the Euclidean distance (i.e., <code>√(x1 - x2)2 + (y1 - y2)2</code>).</p>
+<p>You may return the answer in <strong>any order</strong>. The answer is <strong>guaranteed</strong> to be <strong>unique</strong>(except for the order that it is in). </p>
+<p><strong>Example 1:</strong></p>
+<p><img alt="img" src="https://cdn.jsdelivr.net/gh/JoshuaChou2018/oss@main/uPic/closestplane1.85NQKA.jpg" /></p>
+<pre><code>Input: points = [[1,3],[-2,2]], k = 1
+Output: [[-2,2]]
+Explanation:
+The distance between (1, 3) and the origin is sqrt(10).
+The distance between (-2, 2) and the origin is sqrt(8).
+Since sqrt(8) &lt; sqrt(10), (-2, 2) is closer to the origin.
+We only want the closest k = 1 points from the origin, so the answer is just [[-2,2]].
+</code></pre>
+<p><strong>Example 2:</strong></p>
+<pre><code>Input: points = [[3,3],[5,-1],[-2,4]], k = 2
+Output: [[3,3],[-2,4]]
+Explanation: The answer [[-2,4],[3,3]] would also be accepted.
+</code></pre>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>1 &lt;= k &lt;= points.length &lt;= 104</code></li>
+<li><code>-104 &lt; xi, yi &lt; 104</code></li>
+</ul>
+<h6 id="_1">解题思路：</h6>
+<p>最直接的解法就是把每个点的距离计算出来之后，然后根据大小排序取前k。</p>
+<p>难点：如何在排序算法中采用最快的方式。</p>
+<p>可以考虑使用快速排序方法：</p>
+<pre><code class="language-python">class Solution(object):
+    def kClosest(self, points, k):
+        &quot;&quot;&quot;
+        :type points: List[List[int]]
+        :type k: int
+        :rtype: List[List[int]]
+        &quot;&quot;&quot;
+
+        def calDist(points):
+            return [(x,x[0]*x[0]+x[1]*x[1]) for x in points]
+
+        def quickSort(lists,i,j):
+            if i &gt;= j:
+                return list
+            pivot = lists[i]
+            low = i
+            high = j
+            while i &lt; j:
+                while i &lt; j and lists[j][1] &gt;= pivot[1]:
+                    j -= 1
+                lists[i]=lists[j]
+                while i &lt; j and lists[i][1] &lt;=pivot[1]:
+                    i += 1
+                lists[j]=lists[i]
+            lists[j] = pivot
+            quickSort(lists,low,i-1)
+            quickSort(lists,i+1,high)
+            return lists
+
+        _points=calDist(points)
+        _points=quickSort(_points,0,len(_points)-1)
+        return [_points[idx][0] for idx in range(k)]
+</code></pre>
+<p>但是快速排序性能不稳定，性能取决于pivot的选择。因为这个题有限制条件为topK，所以我们可以进一步考虑使用堆排序，通过维护一个大小为K的堆来遍历数据。</p>
+<p>这里为了简化代码，我们调用python自带的heapq模块。由于heapq模块默认的保留K最大，所以为了获得k距离最近的点，我们需要把距离取负值。</p>
+<pre><code class="language-python">import heapq
+
+class Solution(object):
+    def kClosest(self, points, k):
+        &quot;&quot;&quot;
+        :type points: List[List[int]]
+        :type k: int
+        :rtype: List[List[int]]
+        &quot;&quot;&quot;
+
+        def dist(point):
+            return (-(point[0]**2+point[1]**2),point)
+
+        h=[]
+        for point in points:
+            if len(h)&lt;k:
+                heapq.heappush(h,dist(point))
+            else:
+                _new=dist(point)
+                if h[0][0]&lt;_new[0]:
+                    heapq.heappop(h)
+                    heapq.heappush(h,_new)
+
+        return [x[1] for x in h]
+</code></pre>
+<p>执行用时：148 ms, 在所有 Python 提交中击败了37.37%的用户</p>
+<p>内存消耗：18.1 MB, 在所有 Python 提交中击败了53.54%的用户</p>
+<p>使用堆在性能上显著优于使用快排。</p></main><footer class="footer">
+  <div class="footer-content">
+    <div>
+      <h4>Healthcare Ethical AI Lab (HEAL)</h4>
+      <p>School of Data Science<br>The Chinese University of Hong Kong, Shenzhen</p>
+      <p>Email: <a href="mailto:juexiao.zhou@gmail.com">juexiao.zhou@gmail.com</a></p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <p><a href="/about.html">About</a></p>
+      <p><a href="/publications.html">Publications</a></p>
+      <p><a href="/openings.html">Openings</a></p>
+      <p><a href="/calendar.html">Calendar</a></p>
+    </div>
+    <div>
+      <h4>Connect</h4>
+      <p><a href="https://github.com/JoshuaChou2018" target="_blank">GitHub</a></p>
+      <p><a href="https://scholar.google.com/citations?hl=en&user=g9jpQqEAAAAJ" target="_blank">Google Scholar</a></p>
+      <p><a href="https://www.linkedin.com/in/joshuachou2017/" target="_blank">LinkedIn</a></p>
+      <p><a href="https://orcid.org/0000-0002-6739-6236" target="_blank">ORCID</a></p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2020–2026 Healthcare Ethical AI Lab (HEAL). All rights reserved.</p>
+  </div>
+</footer>
+<button class="back-to-top" aria-label="Back to top">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+<script src="https://cdn.jsdelivr.net/npm/typeit@8.7.1/dist/index.umd.js"></script>
+<script src="/assets/js/main.js"></script>
 </body>
 </html>
