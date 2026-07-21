@@ -168,10 +168,10 @@
     function getThemeColors() {
       const isDark = html.getAttribute('data-theme') !== 'light';
       return {
-        node: isDark ? 'rgba(0, 240, 255, 0.85)' : 'rgba(0, 102, 204, 0.8)',
-        nodeGlow: isDark ? 'rgba(0, 240, 255, 0.4)' : 'rgba(0, 102, 204, 0.3)',
-        line: isDark ? 'rgba(0, 240, 255, 0.08)' : 'rgba(0, 102, 204, 0.07)',
-        pulse: isDark ? 'rgba(184, 41, 221, 0.6)' : 'rgba(124, 0, 184, 0.5)',
+        node: isDark ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.5)',
+        nodeGlow: isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.15)',
+        line: isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.05)',
+        pulse: isDark ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.4)',
       };
     }
 
