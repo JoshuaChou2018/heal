@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ubuntu18.04安装后的登陆问题、卡顿问题及基本环境配置 | Healthcare Ethical AI Lab (HEAL)</title>
+  <meta name="description" content="Healthcare Ethical AI Lab (HEAL) at CUHK-Shenzhen — AI-driven intelligent healthcare, bioinformatics, and ethical trustworthy AI.">
+  <script>
+    (function() {
+      try {
+        const html = document.documentElement;
+        html.classList.add('theme-loading');
+        const saved = localStorage.getItem('heal-theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = saved ? saved : (prefersDark ? 'dark' : 'light');
+        html.setAttribute('data-theme', theme);
+        window.addEventListener('DOMContentLoaded', function() {
+          window.setTimeout(function() { html.classList.remove('theme-loading'); }, 100);
+        });
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar-container">
+    <a href="/index/" class="navbar-brand">
+      <span>HEAL</span>
+    </a>
+    <div class="navbar-links">
+    <a href="/index/" class="">Home</a>
+    <a href="/about/" class="">About Me</a>
+    <a href="/publications/" class="">Publications</a>
+    <a href="/posts/" class="active">Posts</a>
+    <a href="/life/" class="">Life</a>
+    <a href="/gallery/" class="">Gallery</a>
+    <a href="/openings/" class="">Openings</a>
+    <a href="/calendar/" class="">Calendar</a>
+    </div>
+    <div class="navbar-actions">
+      <button class="search-toggle" aria-label="Search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="theme-toggle" aria-label="Toggle theme"></button>
+      <button class="mobile-menu-btn" aria-label="Menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="search-overlay">
+  <div class="search-container">
+    <div class="search-input-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" class="search-input" placeholder="Search posts, life, and pages..." autocomplete="off">
+      <button class="search-close" aria-label="Close search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="search-results"></div>
+  </div>
+</div>
+<main class="page-content"><p>参考 https://blog.csdn.net/weixin_51524504/article/details/119487457</p></main><footer class="footer">
+  <div class="footer-content">
+    <div>
+      <h4>Healthcare Ethical AI Lab (HEAL)</h4>
+      <p>School of Data Science<br>The Chinese University of Hong Kong, Shenzhen</p>
+      <p>Email: <a href="mailto:juexiao.zhou@gmail.com">juexiao.zhou@gmail.com</a></p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <p><a href="/about/">About</a></p>
+      <p><a href="/publications/">Publications</a></p>
+      <p><a href="/openings/">Openings</a></p>
+      <p><a href="/calendar/">Calendar</a></p>
+    </div>
+    <div>
+      <h4>Connect</h4>
+      <p><a href="https://github.com/JoshuaChou2018" target="_blank">GitHub</a></p>
+      <p><a href="https://scholar.google.com/citations?hl=en&user=g9jpQqEAAAAJ" target="_blank">Google Scholar</a></p>
+      <p><a href="https://www.linkedin.com/in/joshuachou2017/" target="_blank">LinkedIn</a></p>
+      <p><a href="https://orcid.org/0000-0002-6739-6236" target="_blank">ORCID</a></p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2020–2026 Healthcare Ethical AI Lab (HEAL). All rights reserved.</p>
+  </div>
+</footer>
+<button class="back-to-top" aria-label="Back to top">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+<script src="https://cdn.jsdelivr.net/npm/typeit@8.7.1/dist/index.umd.js"></script>
+<script src="/assets/js/main.js"></script>
+</body>
+</html>
