@@ -337,24 +337,35 @@
     if (!headings.length) return;
 
     const tocItems = [];
+    const stack = [{ level: 0, ul: tocContainer }];
     headings.forEach((heading, idx) => {
+      if (heading.closest('.toc-skip')) return;
       if (!heading.id) {
         heading.id = 'toc-' + idx;
       }
-      const level = heading.tagName === 'H3' || heading.tagName === 'H4' ? 'level-3' : '';
+      const level = parseInt(heading.tagName[1], 10);
+
+      while (stack[stack.length - 1].level >= level) {
+        stack.pop();
+      }
+
       const li = document.createElement('li');
       const a = document.createElement('a');
       a.href = '#' + heading.id;
       a.textContent = heading.textContent;
-      a.className = level;
+      a.className = 'toc-level-' + level;
       a.addEventListener('click', (e) => {
         e.preventDefault();
         heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
         history.pushState(null, '', '#' + heading.id);
       });
       li.appendChild(a);
-      tocContainer.appendChild(li);
+      stack[stack.length - 1].ul.appendChild(li);
       tocItems.push({ link: a, heading });
+
+      const childUl = document.createElement('ul');
+      li.appendChild(childUl);
+      stack.push({ level, ul: childUl });
     });
 
     if ('IntersectionObserver' in window) {
@@ -590,15 +601,15 @@
       document.body.style.overflow = '';
     }
 
-    document.querySelectorAll('img').forEach(img => {
+    // Use event delegation so dynamically loaded images (e.g. gallery) also work
+    document.addEventListener('click', (e) => {
+      const img = e.target.closest('img');
+      if (!img) return;
       // Skip UI-only images (navbar icons, hero canvas, lightbox itself, buttons)
       if (img.closest('.navbar, .hero-canvas, .lightbox, button, .btn')) return;
       if (!img.src) return;
-      img.style.cursor = 'zoom-in';
-      img.addEventListener('click', (e) => {
-        e.preventDefault();
-        open(img.src);
-      });
+      e.preventDefault();
+      open(img.src);
     });
 
     lightbox.addEventListener('click', (e) => {
