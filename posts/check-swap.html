@@ -69,7 +69,7 @@
     <div class="search-results"></div>
   </div>
 </div>
-<header class="page-header"><div class="max-w-7xl mx-auto px-6"><h1>Check SWAP</h1><p class="text-gray-400 mt-2 font-mono text-sm">2022-06-09</p></div></header><main class="page-content"><ol>
+<main class="page-content"><ol>
 <li><strong>Check SWAP used by differnt PID</strong></li>
 </ol>
 <pre><code>for i in $(cd /proc;ls | grep &quot;^[0-9]&quot; | awk '$0&gt;100'); do awk '/Swap:/{a=a+$2}END{print '&quot;$i&quot;',a/1024&quot;M&quot;}' /proc/$i/smaps;done| sort -k2nr | head

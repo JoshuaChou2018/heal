@@ -69,7 +69,7 @@
     <div class="search-results"></div>
   </div>
 </div>
-<header class="page-header"><div class="max-w-7xl mx-auto px-6"><h1>linux删除百万级别文件</h1><p class="text-gray-400 mt-2 font-mono text-sm">2022-08-05</p></div></header><main class="page-content"><p>在运行任务时，往linux的同一个文件夹中写入超过500万个文件，导致在硬盘还有空间的情况下，在该文件夹下无法继续写入文件，也无法使用ls、rm等命令。记录处理过程。</p>
+<main class="page-content"><p>在运行任务时，往linux的同一个文件夹中写入超过500万个文件，导致在硬盘还有空间的情况下，在该文件夹下无法继续写入文件，也无法使用ls、rm等命令。记录处理过程。</p>
 <p><em>Background: physical server, about two years old, 7200-RPM SATA drives connected to a 3Ware RAID card, ext3 FS mounted noatime and data=ordered, not under crazy load, kernel 2.6.18-92.1.22.el5, uptime 545 days. Directory doesn't contain any subdirectories, just millions of small (~100 byte) files, with some larger (a few KB) ones.</em></p>
 <p>We have a server that has gone a bit cuckoo over the course of the last few months, but we only noticed it the other day when it started being unable to write to a directory due to it containing too many files. Specifically, it started throwing this error in /var/log/messages:</p>
 <pre><code>ext3_dx_add_entry: Directory index full!
