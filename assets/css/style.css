@@ -1141,7 +1141,7 @@ img {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.95);
+  background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(10px);
   z-index: 2000;
   display: none;
@@ -1157,7 +1157,7 @@ img {
 .search-container {
   width: 90%;
   max-width: 700px;
-  background: var(--bg-card);
+  background: var(--bg-secondary);
   border: 1px solid var(--border);
   border-radius: 0;
   overflow: hidden;
@@ -1211,7 +1211,7 @@ img {
 }
 
 .search-result-item:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--bg-card);
 }
 
 .search-result-item a {
