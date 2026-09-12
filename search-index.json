@@ -630,90 +630,6 @@
     "categories": "coding"
   },
   {
-    "title": "Istanbul, Turkey",
-    "url": "/life/2024土耳其伊斯坦布尔/",
-    "content": "",
-    "tags": "Turkey",
-    "categories": "life"
-  },
-  {
-    "title": "Manila, Philippines",
-    "url": "/life/2023菲律宾马尼拉/",
-    "content": "",
-    "tags": "Philippines",
-    "categories": "life"
-  },
-  {
-    "title": "Riyadh, Saudi Arabia",
-    "url": "/life/20239沙特阿拉伯利雅得/",
-    "content": "",
-    "tags": "Saudi Arabia",
-    "categories": "life"
-  },
-  {
-    "title": "NeurIPS 2022. New Orleans, Louisiana, United States of America",
-    "url": "/life/2022新奥尔良/",
-    "content": "",
-    "tags": "USA",
-    "categories": "life"
-  },
-  {
-    "title": "Saudi Arabia",
-    "url": "/life/Saudi-Arabia/",
-    "content": "",
-    "tags": "Saudi Arabia",
-    "categories": "life"
-  },
-  {
-    "title": "Medina, Saudi Arabia",
-    "url": "/life/Medina-Saudi-Arabia/",
-    "content": "",
-    "tags": "Saudi Arabia",
-    "categories": "life"
-  },
-  {
-    "title": "Taif, Saudi Arabia",
-    "url": "/life/Taif-Saudi-Arabia/",
-    "content": "",
-    "tags": "Saudi Arabia",
-    "categories": "life"
-  },
-  {
-    "title": "Bangkok, Thailand",
-    "url": "/life/Bangkok-Thailand/",
-    "content": "",
-    "tags": "Thailand",
-    "categories": "life"
-  },
-  {
-    "title": "Malacca, Malaysia",
-    "url": "/life/Malacca-Malaysia/",
-    "content": "",
-    "tags": "Malaysia",
-    "categories": "life"
-  },
-  {
-    "title": "Phuket, Thailand",
-    "url": "/life/Phuket-Thailand/",
-    "content": "",
-    "tags": "Thailand",
-    "categories": "life"
-  },
-  {
-    "title": "Langkawi Archipelago, Malaysia",
-    "url": "/life/Langkawi-Archipelago-Malaysia/",
-    "content": "",
-    "tags": "Malaysia",
-    "categories": "life"
-  },
-  {
-    "title": "Bali, Indonesia",
-    "url": "/life/Bali-Indonesia/",
-    "content": "",
-    "tags": "Indonesia",
-    "categories": "life"
-  },
-  {
     "title": "About Me",
     "url": "/about/",
     "content": "Juexiao Zhou CUHK-Shenzhen HEAL Healthcare Ethical AI Lab bioinformatics trustworthy AI",
@@ -727,7 +643,6 @@
     "tags": "",
     "categories": ""
   },
-
   {
     "title": "Openings",
     "url": "/openings/",
@@ -739,13 +654,6 @@
     "title": "Calendar",
     "url": "/calendar/",
     "content": "Calendar schedule meeting book appointment",
-    "tags": "",
-    "categories": ""
-  },
-  {
-    "title": "Gallery",
-    "url": "/gallery/",
-    "content": "Gallery lab life events images photos HEAL",
     "tags": "",
     "categories": ""
   }

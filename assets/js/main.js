@@ -409,60 +409,6 @@
 
   initNews();
 
-  // Gallery auto-loader
-  function initGallery() {
-    const grid = document.getElementById('gallery-grid');
-    const empty = document.getElementById('gallery-empty');
-    if (!grid) return;
-
-    fetch('/assets/data/gallery-index.json')
-      .then(res => res.json())
-      .then(data => {
-        const images = data.images || [];
-        if (!images.length) {
-          if (empty) empty.style.display = 'block';
-          return;
-        }
-        grid.innerHTML = images.map(name => `
-          <div class="gallery-item fade-in">
-            <img src="/assets/gallery/${encodeURIComponent(name).replace(/%2F/g, '/')}" alt="${name}" loading="lazy">
-          </div>
-        `).join('');
-
-        // Hide items whose images no longer exist, and show empty hint if all fail
-        const items = grid.querySelectorAll('.gallery-item');
-        items.forEach(item => {
-          const img = item.querySelector('img');
-          img.addEventListener('error', () => {
-            item.remove();
-            if (empty && grid.children.length === 0) {
-              empty.style.display = 'block';
-            }
-          });
-        });
-
-        // Trigger fade-in for dynamically added gallery items
-        if ('IntersectionObserver' in window) {
-          const galleryObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                galleryObserver.unobserve(entry.target);
-              }
-            });
-          }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-          document.querySelectorAll('.gallery-item.fade-in').forEach(el => galleryObserver.observe(el));
-        } else {
-          document.querySelectorAll('.gallery-item.fade-in').forEach(el => el.classList.add('visible'));
-        }
-      })
-      .catch(() => {
-        if (empty) empty.style.display = 'block';
-      });
-  }
-
-  initGallery();
-
   // Search functionality
   function initSearch() {
     const searchToggle = document.querySelector('.search-toggle');
@@ -601,7 +547,7 @@
       document.body.style.overflow = '';
     }
 
-    // Use event delegation so dynamically loaded images (e.g. gallery) also work
+    // Use event delegation so dynamically loaded images also work
     document.addEventListener('click', (e) => {
       const img = e.target.closest('img');
       if (!img) return;
