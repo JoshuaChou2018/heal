@@ -19,7 +19,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Healthcare Ethical AI Lab (HEAL) | CUHK-Shenzhen</title>
-  <meta name="description" content="Healthcare Ethical AI Lab (HEAL) at CUHK-Shenzhen — AI-driven intelligent healthcare, bioinformatics, and ethical trustworthy AI.">
+  <meta name="description" content="Healthcare Ethical AI Lab (HEAL) at CUHK-Shenzhen — AI-driven intelligent healthcare, bioinformatics, and ethical AI.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -76,7 +76,7 @@
       <span>Healthcare Ethical AI Lab</span>
     </div>
     <h1 class="hero-title">Expanding Human Lifespan</h1>
-    <p class="hero-subtitle" data-text="Through AI-driven intelligent healthcare, bioinformatics, and ethical trustworthy AI.">Through AI-driven intelligent healthcare, bioinformatics, and ethical trustworthy AI.</p>
+    <p class="hero-subtitle" data-text="Through AI-driven intelligent healthcare, bioinformatics, and ethical AI.">Through AI-driven intelligent healthcare, bioinformatics, and ethical AI.</p>
     <div class="hero-actions">
       <a href="/publications/" class="btn btn-primary">Explore Publications</a>
       <a href="/openings/" class="btn btn-secondary">Join Us</a>
@@ -89,25 +89,485 @@
 </section>
 
 <section class="section" id="research">
-  <h2 class="section-title fade-in">Research Areas</h2>
-  <p class="section-subtitle fade-in">We work at the intersection of computer science and biomedicine, developing cutting-edge deep learning models and large language models for clinical impact.</p>
-  <div class="card-grid">
-    <div class="card fade-in">
-      <div class="card-icon">🏥</div>
-      <h3>AI-driven Intelligent Healthcare</h3>
-      <p>Developing state-of-the-art AI algorithms, particularly deep learning and large language models, to enable disease detection, prognosis, and risk assessment across diverse clinical settings.</p>
-    </div>
-    <div class="card fade-in">
-      <div class="card-icon">🧬</div>
-      <h3>Bioinformatics</h3>
-      <p>Building intelligent computational frameworks to decode gene regulatory networks, predict protein function and structure, and model complex biological systems with curiosity-driven AI agents.</p>
-    </div>
-    <div class="card fade-in">
-      <div class="card-icon">🛡️</div>
-      <h3>Ethical & Trustworthy AI</h3>
-      <p>Investigating privacy, security, bias, fairness, toxicity, and the societal implications of AI in medicine to ensure clinical AI is responsible, interpretable, and aligned with human values.</p>
+  <h2 class="section-title fade-in">Research Areas · 研究方向</h2>
+  <p class="section-subtitle fade-in">从分子到人体，让 AI 读懂生命 —— 多模态健康数据 × 前沿 AI 引擎 × 疾病全周期管理 × Ethical AI 底座。<br>From molecules to humans: multimodal health data × frontier AI engines × full-cycle disease management, all grounded on Ethical AI.</p>
+
+<style>
+  /* ============ Research Areas 交互展区（背景跟随站点主题变量，文字/点缀色沿用 deepheal 霓虹三色） ============ */
+  .ra-kicker { font-family:'Fira Code',monospace; font-size:.72rem; letter-spacing:.32em; text-transform:uppercase; color:#22d3ee; }
+  .ra-card { background:var(--bg-card); border:1px solid var(--border); border-radius:18px; backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); }
+  .ra-en { color:var(--text-secondary); font-size:.88em; font-weight:400; }
+  .ra-mono { font-family:'Fira Code',monospace; font-size:.68rem; letter-spacing:.08em; }
+  .ra-grad { background:linear-gradient(120deg,#22d3ee 0%,#8b5cf6 55%,#34d399 100%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .ra-reveal { opacity:0; transform:translateY(28px); transition:opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1); }
+  .ra-reveal.ra-in { opacity:1; transform:none; }
+  .ra-dna-wrap { position:relative; overflow:hidden; border-radius:20px; border:1px solid var(--border); background:var(--bg-card); }
+  .ra-dna-wrap canvas { display:block; width:100%; height:340px; }
+  .ra-dna-overlay { position:absolute; top:0; left:0; padding:26px 30px; pointer-events:none; }
+  .ra-btn { cursor:pointer; border:1px solid var(--border); background:var(--bg-card); color:var(--text-secondary); border-radius:999px; padding:.6rem 1.5rem; font-size:.88rem; transition:all .35s ease; font-family:inherit; }
+  .ra-btn:hover { color:#22d3ee; border-color:rgba(34,211,238,.5); }
+  .ra-btn.active { color:#22d3ee; background:rgba(34,211,238,.1); border-color:rgba(34,211,238,.55); box-shadow:0 0 24px -6px rgba(34,211,238,.35); }
+  .ra-layer { transition:opacity .55s ease, transform .55s ease; }
+  .ra-layer.ra-hidden { opacity:0; transform:scale(.98); pointer-events:none; position:absolute; inset:0; }
+  .ra-chip { background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:.85rem 1rem; }
+  .ra-chip p { margin:0; }
+  .ra-tab { cursor:pointer; text-align:left; border-radius:16px; padding:1.3rem 1.4rem; background:var(--bg-card); border:1px solid var(--border); transition:all .4s cubic-bezier(.22,1,.36,1); font-family:inherit; color:var(--text-primary); width:100%; }
+  .ra-tab:hover { border-color:var(--border-strong); }
+  .ra-tab.active { border-color:rgba(34,211,238,.5); box-shadow:0 0 28px -6px rgba(34,211,238,.3), inset 0 0 20px rgba(34,211,238,.04); transform:translateY(-2px); }
+  .ra-panel { display:none; }
+  .ra-panel.active { display:grid; animation:raFade .5s cubic-bezier(.22,1,.36,1); }
+  @keyframes raFade { from { opacity:0; transform:translateY(14px);} to { opacity:1; transform:none;} }
+  .ra-tl { position:relative; }
+  .ra-tl::before { content:''; position:absolute; left:8px; top:8px; bottom:8px; width:1px; background:linear-gradient(rgba(34,211,238,.6), rgba(139,92,246,.5), rgba(52,211,153,.6)); }
+  .ra-tl-item { position:relative; padding-left:2.4rem; padding-bottom:2.6rem; }
+  .ra-tl-item:last-child { padding-bottom:0; }
+  .ra-tl-node { position:absolute; left:0; top:.45rem; width:17px; height:17px; border-radius:999px; border:2px solid var(--border-strong); background:var(--bg-primary); transition:all .5s ease; }
+  .ra-tl-item.lit .ra-tl-node { background:#22d3ee; border-color:#22d3ee; box-shadow:0 0 18px rgba(34,211,238,.75), 0 0 44px rgba(34,211,238,.3); }
+  .ra-tl-card { cursor:pointer; opacity:.42; transform:translateY(10px); transition:all .6s cubic-bezier(.22,1,.36,1); }
+  .ra-tl-item.lit .ra-tl-card { opacity:1; transform:none; border-color:rgba(34,211,238,.3); }
+  .ra-tl-detail { max-height:0; overflow:hidden; opacity:0; transition:max-height .55s cubic-bezier(.22,1,.36,1), opacity .45s; }
+  .ra-tl-item.open .ra-tl-detail { max-height:400px; opacity:1; }
+  .ra-tl-item.open .ra-chev { transform:rotate(180deg); }
+  .ra-chev { transition:transform .35s; flex-shrink:0; color:var(--text-secondary); }
+  .ra-pillar { position:relative; overflow:hidden; transition:all .5s cubic-bezier(.22,1,.36,1); }
+  .ra-pillar::before { content:''; position:absolute; inset:0; background:radial-gradient(500px circle at var(--mx,50%) var(--my,50%), var(--grid-color), transparent 45%); opacity:0; transition:opacity .4s; }
+  .ra-pillar:hover::before { opacity:1; }
+  .ra-pillar:hover { transform:translateY(-5px); border-color:var(--border-strong); }
+  .ra-pillar-body { max-height:0; opacity:0; overflow:hidden; transition:max-height .55s cubic-bezier(.22,1,.36,1), opacity .45s .05s; }
+  .ra-pillar:hover .ra-pillar-body, .ra-pillar.open .ra-pillar-body { max-height:340px; opacity:1; }
+  .ra-tag { font-family:'Fira Code',monospace; font-size:.66rem; letter-spacing:.06em; padding:.28rem .65rem; border-radius:999px; border:1px solid var(--border); color:var(--text-secondary); }
+  .ra-list { display:flex; gap:.6rem; align-items:flex-start; background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:.9rem 1rem; }
+  .ra-list p { margin:0; font-size:.88rem; }
+  /* ---- 分区霓虹配色（!important 用于覆盖内联的 var(--text-secondary)） ---- */
+  #raLayerMacro .ra-mono { color:#8b5cf6 !important; }
+  #raLayerMicro .ra-mono { color:#34d399 !important; }
+  [data-engine="llm"] .ra-mono, #ra-panel-llm .ra-mono { color:#22d3ee !important; }
+  [data-engine="mllm"] .ra-mono, #ra-panel-mllm .ra-mono { color:#8b5cf6 !important; }
+  [data-engine="agent"] .ra-mono, #ra-panel-agent .ra-mono { color:#34d399 !important; }
+  .ra-tl-item:nth-child(1) .ra-mono { color:#22d3ee !important; }
+  .ra-tl-item:nth-child(2) .ra-mono { color:#8b5cf6 !important; }
+  .ra-tl-item:nth-child(3) .ra-mono { color:#34d399 !important; }
+  .ra-pillar:nth-child(1) .ra-mono { color:#22d3ee !important; }
+  .ra-pillar:nth-child(2) .ra-mono { color:#8b5cf6 !important; }
+  .ra-pillar:nth-child(3) .ra-mono { color:#34d399 !important; }
+  .ra-pillar:nth-child(1) .ra-tag { color:#22d3ee; border-color:rgba(34,211,238,.3); background:rgba(34,211,238,.07); }
+  .ra-pillar:nth-child(2) .ra-tag { color:#8b5cf6; border-color:rgba(139,92,246,.3); background:rgba(139,92,246,.07); }
+  .ra-pillar:nth-child(3) .ra-tag { color:#34d399; border-color:rgba(52,211,153,.3); background:rgba(52,211,153,.07); }
+  /* ---- CONVERGENCE 侧栏布局 + ECG 波形 ---- */
+  .ra-data-grid { display:grid; gap:1.4rem; }
+  @media (min-width:1024px) { .ra-data-grid { grid-template-columns:3fr 2fr; } }
+  .ra-ecg { stroke-dasharray:1400; stroke-dashoffset:1400; animation:raEcg 5s linear infinite; }
+  @keyframes raEcg { to { stroke-dashoffset:-1400; } }
+  @keyframes raPulse { 0%,100% { opacity:1; } 50% { opacity:.35; } }
+  @media (prefers-reduced-motion: reduce) { .ra-reveal { transition:none; opacity:1; transform:none; } .ra-ecg { animation:none; } }
+</style>
+
+<div id="ra-showcase" style="text-align:left;">
+
+  <!-- DNA 粒子横幅：从分子到人体 -->
+  <div class="ra-dna-wrap ra-reveal" style="margin:2.5rem 0 4.5rem;">
+    <canvas id="raDnaCanvas"></canvas>
+    <div class="ra-dna-overlay">
+      <p class="ra-kicker" style="margin:0;">AI-Driven Intelligent Healthcare</p>
+      <p style="margin:.6rem 0 0;font-weight:800;font-size:1.9rem;letter-spacing:-.02em;">从<span class="ra-grad">分子</span>到<span class="ra-grad">人体</span>，让 AI 读懂生命</p>
+      <p class="ra-en" style="margin:.3rem 0 0;font-size:.95rem;">From Molecules to Humans — Teaching AI to Read Life</p>
     </div>
   </div>
+
+  <!-- 01 数据层 -->
+  <div class="ra-reveal">
+    <p class="ra-kicker" style="margin:0;">01 · Data Layer 数据层</p>
+    <p style="margin:.6rem 0 0;font-weight:800;font-size:2.25rem;letter-spacing:-.02em;">多模态 · 多尺度<span class="ra-grad">健康数据</span> <span class="ra-en" style="font-weight:500;">Multimodal · Multi-scale Health Data</span></p>
+    <p style="margin:.8rem 0 0;color:var(--text-secondary);font-size:1rem;">从人群与器官，到细胞与分子 —— 生命信号跨越多个数量级，我们将宏观临床世界与微观分子宇宙汇聚到同一个可计算空间。<br><span class="ra-en">From populations and organs down to cells and molecules — we bring the macro clinical world and the micro molecular universe into one computable space.</span></p>
+    <div style="display:flex;gap:.7rem;margin-top:1.5rem;flex-wrap:wrap;">
+      <button class="ra-btn active" data-scale="macro">宏观尺度 <span class="ra-mono">MACRO</span></button>
+      <button class="ra-btn" data-scale="micro">微观尺度 <span class="ra-mono">MICRO</span></button>
+    </div>
+  </div>
+
+  <div class="ra-data-grid ra-reveal" style="margin-top:1.6rem;">
+  <div class="ra-card" style="position:relative;overflow:hidden;min-height:460px;">
+    <div id="raLayerMacro" class="ra-layer" style="position:absolute;inset:0;padding:1.8rem 2rem;">
+      <canvas id="raMacroCanvas" style="position:absolute;inset:0;width:100%;height:100%;"></canvas>
+      <div style="position:relative;z-index:1;">
+        <p class="ra-mono" style="color:var(--text-secondary);margin:0;">MACRO SCALE · 10⁰ — 10² m</p>
+        <p style="margin:.4rem 0 0;font-weight:700;font-size:1.5rem;">临床与人群视角 <span class="ra-en">Clinical &amp; Population View</span></p>
+      </div>
+      <div style="position:absolute;left:2rem;right:2rem;bottom:1.8rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.8rem;z-index:1;">
+        <div class="ra-chip"><p class="ra-mono" style="color:var(--text-secondary);">IMAGING</p><p style="font-size:.9rem;">医学影像 CT / MRI / 病理<br><span class="ra-en">Medical imaging &amp; pathology</span></p></div>
+        <div class="ra-chip"><p class="ra-mono" style="color:var(--text-secondary);">EHR</p><p style="font-size:.9rem;">电子病历与临床文本<br><span class="ra-en">Electronic health records</span></p></div>
+        <div class="ra-chip"><p class="ra-mono" style="color:var(--text-secondary);">WEARABLE</p><p style="font-size:.9rem;">可穿戴设备时序信号<br><span class="ra-en">Wearable time-series signals</span></p></div>
+        <div class="ra-chip"><p class="ra-mono" style="color:var(--text-secondary);">COHORT</p><p style="font-size:.9rem;">人群队列与随访数据<br><span class="ra-en">Cohorts &amp; follow-up data</span></p></div>
+      </div>
+    </div>
+    <div id="raLayerMicro" class="ra-layer ra-hidden" style="position:absolute;inset:0;padding:1.8rem 2rem;">
+      <canvas id="raMicroCanvas" style="position:absolute;inset:0;width:100%;height:100%;"></canvas>
+      <div style="position:relative;z-index:1;">
+        <p class="ra-mono" style="color:var(--text-secondary);margin:0;">MICRO SCALE · 10⁻⁹ — 10⁻⁶ m</p>
+        <p style="margin:.4rem 0 0;font-weight:700;font-size:1.5rem;">分子与细胞视角 <span class="ra-en">Molecular &amp; Cellular View</span></p>
+      </div>
+      <div style="position:absolute;left:2rem;right:2rem;bottom:1.8rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.8rem;z-index:1;">
+        <div class="ra-chip"><p class="ra-mono" style="color:var(--text-secondary);">GENOMICS</p><p style="font-size:.9rem;">基因组学与变异图谱<br><span class="ra-en">Genomics &amp; variant maps</span></p></div>
+        <div class="ra-chip"><p class="ra-mono" style="color:var(--text-secondary);">PROTEOMICS</p><p style="font-size:.9rem;">蛋白质组学与结构<br><span class="ra-en">Proteomics &amp; structures</span></p></div>
+        <div class="ra-chip"><p class="ra-mono" style="color:var(--text-secondary);">SINGLE-CELL</p><p style="font-size:.9rem;">单细胞转录组数据<br><span class="ra-en">Single-cell transcriptomics</span></p></div>
+        <div class="ra-chip"><p class="ra-mono" style="color:var(--text-secondary);">MOLECULE</p><p style="font-size:.9rem;">小分子与相互作用网络<br><span class="ra-en">Molecules &amp; interactions</span></p></div>
+      </div>
+    </div>
+  </div>
+  <!-- CONVERGENCE 说明 + ECG 实时信号 侧栏 -->
+  <div style="display:flex;flex-direction:column;gap:1.4rem;">
+    <div class="ra-card" style="padding:1.8rem 2rem;flex:1;">
+      <p class="ra-mono" style="margin:0;color:#22d3ee;">CONVERGENCE</p>
+      <p style="margin:.6rem 0 0;font-weight:700;font-size:1.25rem;">数据汇聚 = 可计算的生命 <span class="ra-en">Convergence = Computable Life</span></p>
+      <p style="margin:.8rem 0 0;color:var(--text-secondary);font-size:.9rem;">影像像素、病历文本、心电波形、基因序列 —— 异构数据经过统一表征学习（Representation Learning）映射到共享语义空间，使跨尺度的推理成为可能：一个突变如何改变蛋白构象，如何扰动细胞状态，最终如何在影像上留下可见的痕迹。<br><span class="ra-en">Imaging pixels, clinical text, ECG waveforms and gene sequences — heterogeneous data are mapped into a shared semantic space via Representation Learning, enabling cross-scale reasoning: how a mutation reshapes a protein, perturbs cell states, and finally leaves a visible trace on an image.</span></p>
+      <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem;">
+        <span class="ra-tag" style="color:#22d3ee;border-color:rgba(34,211,238,.3);background:rgba(34,211,238,.07);">Multimodal</span>
+        <span class="ra-tag" style="color:#8b5cf6;border-color:rgba(139,92,246,.3);background:rgba(139,92,246,.07);">Multi-scale</span>
+        <span class="ra-tag" style="color:#34d399;border-color:rgba(52,211,153,.3);background:rgba(52,211,153,.07);">Foundation Data</span>
+      </div>
+    </div>
+    <div class="ra-card" style="padding:1.3rem 1.6rem;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <p class="ra-mono" style="margin:0;color:#22d3ee;">LIVE SIGNAL · ECG</p>
+        <span style="display:flex;align-items:center;gap:.35rem;font-size:.75rem;color:#34d399;"><span style="width:6px;height:6px;border-radius:999px;background:#34d399;animation:raPulse 1.6s ease-in-out infinite;"></span>streaming</span>
+      </div>
+      <svg viewBox="0 0 600 120" style="width:100%;height:72px;margin-top:.6rem;">
+        <path class="ra-ecg" fill="none" stroke="#22d3ee" stroke-width="2" stroke-linejoin="round" d="M0,60 L60,60 L75,60 L85,20 L95,95 L105,60 L150,60 L165,48 L180,60 L240,60 L255,60 L265,15 L275,100 L285,60 L330,60 L345,48 L360,60 L420,60 L435,60 L445,20 L455,95 L465,60 L510,60 L525,48 L540,60 L600,60"/>
+      </svg>
+    </div>
+  </div>
+  </div>
+
+  <!-- 02 AI 引擎层 -->
+  <div class="ra-reveal" style="margin-top:5rem;">
+    <p class="ra-kicker" style="margin:0;">02 · AI Engine 技术引擎</p>
+    <p style="margin:.6rem 0 0;font-weight:800;font-size:2.25rem;letter-spacing:-.02em;">AI 算法与<span class="ra-grad">系统层</span> <span class="ra-en" style="font-weight:500;">AI Algorithms &amp; Systems</span></p>
+    <p style="margin:.8rem 0 0;color:var(--text-secondary);font-size:1rem;">数据之上，是推理的机器。点击切换引擎核心，查看每类模型在医疗场景中的能力。<br><span class="ra-en">Above the data sits the reasoning machine. Click to switch between engine cores.</span></p>
+  </div>
+  <div class="ra-reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.9rem;margin-top:1.6rem;">
+    <button class="ra-tab active" data-engine="llm"><p class="ra-mono" style="color:var(--text-secondary);margin:0;">CORE · 01</p><p style="margin:.4rem 0 0;font-weight:700;font-size:1.1rem;">医学大语言模型<br><span class="ra-en">Medical LLM</span></p></button>
+    <button class="ra-tab" data-engine="mllm"><p class="ra-mono" style="color:var(--text-secondary);margin:0;">CORE · 02</p><p style="margin:.4rem 0 0;font-weight:700;font-size:1.1rem;">多模态医学大模型<br><span class="ra-en">Multimodal Medical FM</span></p></button>
+    <button class="ra-tab" data-engine="agent"><p class="ra-mono" style="color:var(--text-secondary);margin:0;">CORE · 03</p><p style="margin:.4rem 0 0;font-weight:700;font-size:1.1rem;">AI 智能体系统<br><span class="ra-en">AI Agents</span></p></button>
+  </div>
+
+  <div class="ra-reveal" style="margin-top:1.1rem;">
+    <div id="ra-panel-llm" class="ra-panel active ra-card" style="padding:2rem 2.2rem;grid-template-columns:1fr;gap:1.6rem;">
+      <div>
+        <p class="ra-mono" style="color:var(--text-secondary);margin:0;">Medical LLM</p>
+        <p style="margin:.5rem 0 0;font-weight:700;font-size:1.5rem;">读懂医学语言的推理核心 <span class="ra-en">A reasoning core fluent in medical language</span></p>
+        <p style="margin:.8rem 0 0;color:var(--text-secondary);font-size:.9rem;">在医学文献、临床指南与真实病历语料上训练的大语言模型，具备医学知识推理、病历结构化、报告生成与循证问答能力。<br><span class="ra-en">Trained on medical literature, clinical guidelines and real EHR corpora, with capabilities in medical reasoning, record structuring, report generation and evidence-based QA.</span></p>
+      </div>
+      <div style="display:grid;gap:.7rem;">
+        <div class="ra-list"><span class="ra-mono" style="color:var(--text-secondary);">→</span><p>病历自动结构化与质控 <span class="ra-en">EHR structuring &amp; QC</span></p></div>
+        <div class="ra-list"><span class="ra-mono" style="color:var(--text-secondary);">→</span><p>循证医学问答与文献溯源 <span class="ra-en">Evidence-based QA with citation tracing</span></p></div>
+        <div class="ra-list"><span class="ra-mono" style="color:var(--text-secondary);">→</span><p>影像报告草拟与摘要生成 <span class="ra-en">Radiology report drafting</span></p></div>
+      </div>
+    </div>
+    <div id="ra-panel-mllm" class="ra-panel ra-card" style="padding:2rem 2.2rem;grid-template-columns:1fr;gap:1.6rem;">
+      <div>
+        <p class="ra-mono" style="color:var(--text-secondary);margin:0;">Multimodal Medical FM</p>
+        <p style="margin:.5rem 0 0;font-weight:700;font-size:1.5rem;">跨越像素、文本与波形的统一表征 <span class="ra-en">Unified representations across pixels, text and waveforms</span></p>
+        <p style="margin:.8rem 0 0;color:var(--text-secondary);font-size:.9rem;">将影像、病理切片、检验指标、时序信号与文本映射到同一语义空间的基座模型，支持跨模态检索、零样本迁移与多源证据融合。<br><span class="ra-en">A foundation model mapping imaging, pathology slides, lab tests, time-series signals and text into one semantic space — enabling cross-modal retrieval, zero-shot transfer and multi-evidence fusion.</span></p>
+      </div>
+      <div style="display:grid;gap:.7rem;">
+        <div class="ra-list"><span class="ra-mono" style="color:var(--text-secondary);">→</span><p>影像-报告跨模态对齐与检索 <span class="ra-en">Image-report alignment &amp; retrieval</span></p></div>
+        <div class="ra-list"><span class="ra-mono" style="color:var(--text-secondary);">→</span><p>病理全切片（WSI）智能分析 <span class="ra-en">Whole-slide image analysis</span></p></div>
+        <div class="ra-list"><span class="ra-mono" style="color:var(--text-secondary);">→</span><p>组学-表型跨尺度关联发现 <span class="ra-en">Omics-phenotype association discovery</span></p></div>
+      </div>
+    </div>
+    <div id="ra-panel-agent" class="ra-panel ra-card" style="padding:2rem 2.2rem;grid-template-columns:1fr;gap:1.6rem;">
+      <div>
+        <p class="ra-mono" style="color:var(--text-secondary);margin:0;">AI Agents</p>
+        <p style="margin:.5rem 0 0;font-weight:700;font-size:1.5rem;">会调用工具、协同工作的智能体 <span class="ra-en">Tool-using, collaborating agents</span></p>
+        <p style="margin:.8rem 0 0;color:var(--text-secondary);font-size:.9rem;">以 LLM 为大脑、工具为手脚：自动检索文献、调用分析管线、执行分子模拟，多智能体协作完成从假设生成到实验设计的复杂任务。<br><span class="ra-en">LLMs as brains, tools as hands: agents retrieve literature, run analysis pipelines and molecular simulations, collaborating from hypothesis generation to experiment design.</span></p>
+      </div>
+      <div style="display:grid;gap:.7rem;">
+        <div class="ra-list"><span class="ra-mono" style="color:var(--text-secondary);">→</span><p>自动化文献综述与假设生成 <span class="ra-en">Automated review &amp; hypothesis generation</span></p></div>
+        <div class="ra-list"><span class="ra-mono" style="color:var(--text-secondary);">→</span><p>虚拟筛选与分子对接流水线 <span class="ra-en">Virtual screening &amp; docking pipelines</span></p></div>
+        <div class="ra-list"><span class="ra-mono" style="color:var(--text-secondary);">→</span><p>患者随访与健康管理 Agent <span class="ra-en">Patient follow-up agents</span></p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 03 疾病全周期 -->
+  <div class="ra-reveal" style="margin-top:5rem;">
+    <p class="ra-kicker" style="margin:0;">03 · Full-Cycle Care 应用闭环</p>
+    <p style="margin:.6rem 0 0;font-weight:800;font-size:2.25rem;letter-spacing:-.02em;">疾病<span class="ra-grad">全周期</span>管理 <span class="ra-en" style="font-weight:500;">Full-Cycle Disease Management</span></p>
+    <p style="margin:.8rem 0 0;color:var(--text-secondary);font-size:1rem;">从风险尚未显形，到分子级别的干预 —— AI 介入疾病旅程的每个关键节点。滚动点亮流程，点击卡片展开细节。<br><span class="ra-en">From invisible risk to molecular-level intervention — AI assists at every key node of the disease journey. Scroll to light up each phase; click a card to expand.</span></p>
+  </div>
+  <div class="ra-tl ra-reveal" style="margin-top:2.2rem;">
+    <div class="ra-tl-item">
+      <div class="ra-tl-node"></div>
+      <div class="ra-tl-card ra-card" style="padding:1.7rem 1.9rem;">
+        <div style="display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;">
+          <div>
+            <p class="ra-mono" style="color:var(--text-secondary);margin:0;">PHASE 01 · EARLY WARNING</p>
+            <p style="margin:.4rem 0 0;font-weight:700;font-size:1.5rem;">风险预警 <span class="ra-en">Early Warning</span></p>
+            <p style="margin:.5rem 0 0;color:var(--text-secondary);font-size:.9rem;">在疾病发生之前看见风险 —— 融合可穿戴时序信号、体检指标与遗传易感性，构建个体化动态风险画像。<br><span class="ra-en">See risk before disease onset — fusing wearable signals, checkup metrics and genetic susceptibility into a dynamic personal risk profile.</span></p>
+          </div>
+          <svg class="ra-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="ra-tl-detail">
+          <div style="padding-top:1.1rem;margin-top:1.1rem;border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem;">
+            <div class="ra-chip"><p class="ra-mono" style="color:var(--text-secondary);">AI 介入 · AI ROLE</p><p style="font-size:.9rem;">时序模型对心电/血糖/睡眠信号进行异常前兆检测 <span class="ra-en">Time-series models detect pre-anomaly patterns in ECG / glucose / sleep signals.</span></p></div>
+            <div class="ra-chip"><p class="ra-mono" style="color:var(--text-secondary);">AI 介入 · AI ROLE</p><p style="font-size:.9rem;">多基因风险评分 × 生活方式的个体化分层 <span class="ra-en">Polygenic risk scores × lifestyle for individualized stratification.</span></p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ra-tl-item">
+      <div class="ra-tl-node"></div>
+      <div class="ra-tl-card ra-card" style="padding:1.7rem 1.9rem;">
+        <div style="display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;">
+          <div>
+            <p class="ra-mono" style="color:var(--text-secondary);margin:0;">PHASE 02 · DIAGNOSIS</p>
+            <p style="margin:.4rem 0 0;font-weight:700;font-size:1.5rem;">智能诊断 <span class="ra-en">Intelligent Diagnosis</span></p>
+            <p style="margin:.5rem 0 0;color:var(--text-secondary);font-size:.9rem;">多模态大模型联合阅片、读片、读病历 —— 为医生提供带证据链的第二诊疗意见。<br><span class="ra-en">Multimodal models read scans, slides and records together — offering second opinions with traceable evidence chains.</span></p>
+          </div>
+          <svg class="ra-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="ra-tl-detail">
+          <div style="padding-top:1.1rem;margin-top:1.1rem;border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem;">
+            <div class="ra-chip"><p class="ra-mono" style="color:var(--text-secondary);">AI 介入 · AI ROLE</p><p style="font-size:.9rem;">影像 + 病理 + 检验的多模态联合辅助诊断 <span class="ra-en">Joint imaging + pathology + lab multimodal diagnosis.</span></p></div>
+            <div class="ra-chip"><p class="ra-mono" style="color:var(--text-secondary);">AI 介入 · AI ROLE</p><p style="font-size:.9rem;">可解释证据链：每个结论可溯源到影像区域与文献 <span class="ra-en">Explainable evidence chains traceable to image regions and literature.</span></p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ra-tl-item">
+      <div class="ra-tl-node"></div>
+      <div class="ra-tl-card ra-card" style="padding:1.7rem 1.9rem;">
+        <div style="display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;">
+          <div>
+            <p class="ra-mono" style="color:var(--text-secondary);margin:0;">PHASE 03 · DRUG DISCOVERY</p>
+            <p style="margin:.4rem 0 0;font-weight:700;font-size:1.5rem;">个性化药物研发 <span class="ra-en">Personalized Drug Discovery</span></p>
+            <p style="margin:.5rem 0 0;color:var(--text-secondary);font-size:.9rem;">从靶点发现到分子生成 —— AI Agents 驱动的药物发现流水线，让"一人一策"的治疗成为可能。<br><span class="ra-en">From target discovery to molecule generation — agent-driven pipelines make "one patient, one strategy" possible.</span></p>
+          </div>
+          <svg class="ra-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="ra-tl-detail">
+          <div style="padding-top:1.1rem;margin-top:1.1rem;border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem;">
+            <div class="ra-chip"><p class="ra-mono" style="color:var(--text-secondary);">AI 介入 · AI ROLE</p><p style="font-size:.9rem;">生成式模型设计候选分子，虚拟筛选百万级化合物库 <span class="ra-en">Generative models design candidates; virtual screening over million-scale libraries.</span></p></div>
+            <div class="ra-chip"><p class="ra-mono" style="color:var(--text-secondary);">AI 介入 · AI ROLE</p><p style="font-size:.9rem;">基于患者组学谱的药物重定位与联用推荐 <span class="ra-en">Drug repurposing and combination recommendations from patient omics.</span></p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04 Ethical AI 底座 -->
+  <div class="ra-reveal" style="margin-top:5rem;">
+    <p class="ra-kicker" style="margin:0;">04 · Ethical AI Foundation 系统底座</p>
+    <p style="margin:.6rem 0 0;font-weight:800;font-size:2.25rem;letter-spacing:-.02em;">Ethical AI <span class="ra-grad">系统级底座</span> <span class="ra-en" style="font-weight:500;">Ethical AI as the System Foundation</span></p>
+    <p style="margin:.8rem 0 0;color:var(--text-secondary);font-size:1rem;">不是附录，而是地基。可信、隐私与公平写进系统架构的每一层。悬停（或点击）查看每个支柱的技术内涵。<br><span class="ra-en">Not an appendix, but the groundwork. Trust, privacy and fairness are constraints written into every layer of the architecture. Hover (or tap) to explore each pillar.</span></p>
+  </div>
+  <div class="ra-reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.1rem;margin-top:1.6rem;">
+    <div class="ra-pillar ra-card" style="padding:1.9rem 2rem;">
+      <p style="margin:0;font-weight:700;font-size:1.25rem;">Trustworthy AI</p>
+      <p class="ra-mono" style="color:var(--text-secondary);margin:.3rem 0 0;">可信 · 可解释 · 可验证</p>
+      <div class="ra-pillar-body">
+        <p style="margin:.9rem 0 0;color:var(--text-secondary);font-size:.9rem;">不确定性量化、可解释性归因、幻觉检测与临床安全围栏 —— 让每次输出都可被审视与复核。<br><span class="ra-en">Uncertainty quantification, explainable attribution, hallucination detection and clinical safety guardrails.</span></p>
+        <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.9rem;">
+          <span class="ra-tag">Explainability</span><span class="ra-tag">Uncertainty</span><span class="ra-tag">Guardrail</span>
+        </div>
+      </div>
+    </div>
+    <div class="ra-pillar ra-card" style="padding:1.9rem 2rem;">
+      <p style="margin:0;font-weight:700;font-size:1.25rem;">Private AI</p>
+      <p class="ra-mono" style="color:var(--text-secondary);margin:.3rem 0 0;">隐私保护 · 数据不出院</p>
+      <div class="ra-pillar-body">
+        <p style="margin:.9rem 0 0;color:var(--text-secondary);font-size:.9rem;">联邦学习、差分隐私与同态加密：模型走向数据，而非数据流向模型，原始病历永不离开本地。<br><span class="ra-en">Federated learning, differential privacy and homomorphic encryption: models travel to data, raw records never leave the hospital.</span></p>
+        <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.9rem;">
+          <span class="ra-tag">Federated Learning</span><span class="ra-tag">DP</span><span class="ra-tag">TEE</span>
+        </div>
+      </div>
+    </div>
+    <div class="ra-pillar ra-card" style="padding:1.9rem 2rem;">
+      <p style="margin:0;font-weight:700;font-size:1.25rem;">Fair AI</p>
+      <p class="ra-mono" style="color:var(--text-secondary);margin:.3rem 0 0;">公平 · 普惠 · 无偏</p>
+      <div class="ra-pillar-body">
+        <p style="margin:.9rem 0 0;color:var(--text-secondary);font-size:.9rem;">系统性偏倚审计与公平性约束训练，确保模型在不同年龄、性别、地域与种族人群中表现一致。<br><span class="ra-en">Systematic bias audits and fairness-constrained training keep performance consistent across age, gender, region and ethnicity.</span></p>
+        <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.9rem;">
+          <span class="ra-tag">Bias Audit</span><span class="ra-tag">Subgroup Parity</span><span class="ra-tag">Fairness</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ra-card ra-reveal" style="margin-top:1.4rem;padding:1.2rem 1.8rem;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:.8rem;">
+    <p style="margin:0;font-size:.9rem;color:var(--text-secondary);">以上三大支柱<strong style="color:var(--text-primary);">贯穿数据层、引擎层与应用层</strong>的每一个模块。<span class="ra-en">The three pillars run through every module of the data, engine and application layers.</span></p>
+    <span class="ra-mono" style="color:var(--text-secondary);">— FOUNDATION LAYER —</span>
+  </div>
+</div>
+
+<script>
+/* Research Areas 交互逻辑：DNA 粒子 / 尺度切换 / 引擎切换 / 时间轴 / 伦理卡片
+   背景随站点明暗主题适配，文字与粒子点缀色沿用 deepheal 霓虹三色（青/蓝紫/生物绿） */
+(function () {
+  'use strict';
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var isMobile = window.matchMedia('(max-width: 768px)').matches;
+  var NEON = { cyan: '#22d3ee', violet: '#8b5cf6', bio: '#34d399' };
+
+  /* ---------- DNA 粒子横幅 ---------- */
+  (function () {
+    var canvas = document.getElementById('raDnaCanvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var W, H, particles = [], mouse = { x: -9999, y: -9999 };
+    var COUNT = reduced ? 0 : (isMobile ? 160 : 320);
+    var cols = { fg: NEON.cyan, mid: NEON.violet, faint: NEON.bio };
+
+    function resize() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = canvas.clientWidth; H = canvas.clientHeight;
+      canvas.width = W * dpr; canvas.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var cx = isMobile ? W * 0.5 : W * 0.66;
+      var top = H * 0.08, bottom = H * 0.94, amp = Math.min(W, H) * 0.30, turns = 2.2;
+      particles.forEach(function (p, i) {
+        var t = i / COUNT, phase = t * Math.PI * 2 * turns, strand = i % 3;
+        p.ty = top + t * (bottom - top);
+        p.tx = strand === 2 ? cx + (Math.random() * 2 - 1) * amp * Math.abs(Math.sin(phase)) * 0.85
+                            : cx + Math.sin(phase + strand * Math.PI) * amp;
+        p.c = [cols.fg, cols.mid, cols.faint][i % 3];
+      });
+    }
+    for (var i = 0; i < COUNT; i++) {
+      particles.push({ x: Math.random() * 800, y: Math.random() * 340, vx: 0, vy: 0, tx: 0, ty: 0, c: '#fff', r: 0.9 + Math.random() * 1.5, drift: Math.random() * Math.PI * 2 });
+    }
+    function tick() {
+      ctx.clearRect(0, 0, W, H);
+      var time = performance.now() * 0.001;
+      for (var j = 0; j < particles.length; j++) {
+        var p = particles[j];
+        p.vx += (p.tx + Math.sin(time * 1.2 + p.drift) * 4 - p.x) * 0.014;
+        p.vy += (p.ty - p.y) * 0.014;
+        var dx = p.x - mouse.x, dy = p.y - mouse.y, d2 = dx * dx + dy * dy;
+        if (d2 < 9000) { var f = (9000 - d2) / 9000; p.vx += dx * f * 0.02; p.vy += dy * f * 0.02; }
+        p.vx *= 0.9; p.vy *= 0.9; p.x += p.vx; p.y += p.vy;
+        ctx.globalAlpha = 0.8; ctx.fillStyle = p.c;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(tick);
+    }
+    window.addEventListener('resize', resize);
+    canvas.addEventListener('mousemove', function (e) {
+      var r = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
+    });
+    canvas.addEventListener('mouseleave', function () { mouse.x = -9999; mouse.y = -9999; });
+    if (COUNT) { resize(); tick(); }
+  })();
+
+  /* ---------- 宏观/微观数据流 ---------- */
+  function makeFlow(id, count, style, color) {
+    var canvas = document.getElementById(id);
+    if (!canvas) return { start: function () {}, stop: function () {} };
+    var ctx = canvas.getContext('2d');
+    var W, H, parts = [], running = false, raf;
+    function resize() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = canvas.clientWidth; H = canvas.clientHeight;
+      canvas.width = W * dpr; canvas.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    function init() {
+      parts = [];
+      for (var i = 0; i < count; i++) {
+        if (style === 'macro') parts.push({ x: Math.random() * W, y: Math.random() * H, v: 0.4 + Math.random() * 1.1, r: 0.8 + Math.random() * 1.5, o: 0.15 + Math.random() * 0.4, wave: Math.random() * Math.PI * 2 });
+        else parts.push({ a: Math.random() * Math.PI * 2, rad: 26 + Math.random() * Math.min(W, H) * 0.32, v: (0.002 + Math.random() * 0.005) * (Math.random() > .5 ? 1 : -1), r: 0.8 + Math.random() * 1.6, o: 0.2 + Math.random() * 0.45 });
+      }
+    }
+    function tick() {
+      if (!running) return;
+      ctx.clearRect(0, 0, W, H);
+      var j, p;
+      if (style === 'macro') {
+        for (j = 0; j < parts.length; j++) {
+          p = parts[j]; p.x += p.v;
+          var y = p.y + Math.sin(p.x * 0.012 + p.wave) * 13;
+          if (p.x > W + 10) p.x = -10;
+          ctx.globalAlpha = p.o; ctx.fillStyle = color;
+          ctx.beginPath(); ctx.arc(p.x, y, p.r, 0, Math.PI * 2); ctx.fill();
+        }
+      } else {
+        var cx = W / 2, cy = H / 2;
+        for (j = 0; j < parts.length; j++) {
+          p = parts[j]; p.a += p.v;
+          ctx.globalAlpha = p.o; ctx.fillStyle = color;
+          ctx.beginPath(); ctx.arc(cx + Math.cos(p.a) * p.rad, cy + Math.sin(p.a) * p.rad * 0.62, p.r, 0, Math.PI * 2); ctx.fill();
+        }
+        ctx.globalAlpha = 0.35;
+        var g = ctx.createRadialGradient(cx, cy, 0, cx, cy, 36);
+        g.addColorStop(0, color); g.addColorStop(1, 'transparent');
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(cx, cy, 36, 0, Math.PI * 2); ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+      raf = requestAnimationFrame(tick);
+    }
+    return {
+      start: function () { if (reduced) return; resize(); if (!parts.length) init(); if (!running) { running = true; tick(); } },
+      stop: function () { running = false; cancelAnimationFrame(raf); }
+    };
+  }
+  var macroFlow = makeFlow('raMacroCanvas', isMobile ? 55 : 110, 'macro', NEON.violet);
+  var microFlow = makeFlow('raMicroCanvas', isMobile ? 45 : 95, 'micro', NEON.bio);
+  var macroOn = true, dataVisible = false;
+  function syncFlows() {
+    if (!dataVisible) { macroFlow.stop(); microFlow.stop(); return; }
+    if (macroOn) { macroFlow.start(); microFlow.stop(); } else { microFlow.start(); macroFlow.stop(); }
+  }
+  new IntersectionObserver(function (es) {
+    es.forEach(function (e) { dataVisible = e.isIntersecting; syncFlows(); });
+  }, { threshold: 0.1 }).observe(document.getElementById('raLayerMacro'));
+
+  document.querySelectorAll('#ra-showcase [data-scale]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('#ra-showcase [data-scale]').forEach(function (b) { b.classList.toggle('active', b === btn); });
+      macroOn = btn.dataset.scale === 'macro';
+      document.getElementById('raLayerMacro').classList.toggle('ra-hidden', !macroOn);
+      document.getElementById('raLayerMicro').classList.toggle('ra-hidden', macroOn);
+      syncFlows();
+    });
+  });
+
+  /* ---------- AI 引擎切换 ---------- */
+  document.querySelectorAll('#ra-showcase [data-engine]').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('#ra-showcase [data-engine]').forEach(function (t) { t.classList.toggle('active', t === tab); });
+      document.querySelectorAll('#ra-showcase .ra-panel').forEach(function (p) { p.classList.remove('active'); });
+      document.getElementById('ra-panel-' + tab.dataset.engine).classList.add('active');
+    });
+  });
+
+  /* ---------- 时间轴：滚动点亮 + 点击展开 ---------- */
+  var tlIO = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { e.target.classList.toggle('lit', e.isIntersecting); });
+  }, { rootMargin: '-30% 0px -30% 0px' });
+  document.querySelectorAll('.ra-tl-item').forEach(function (item) {
+    tlIO.observe(item);
+    item.querySelector('.ra-tl-card').addEventListener('click', function () { item.classList.toggle('open'); });
+  });
+
+  /* ---------- 伦理卡片：光斑跟随 + 触屏点击展开 ---------- */
+  document.querySelectorAll('.ra-pillar').forEach(function (card) {
+    card.addEventListener('mousemove', function (e) {
+      var r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+    card.addEventListener('click', function () { card.classList.toggle('open'); });
+  });
+
+  /* ---------- 滚动 reveal ---------- */
+  var revIO = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('ra-in'); revIO.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.ra-reveal').forEach(function (el) { revIO.observe(el); });
+})();
+</script>
 </section>
 
 <section class="section">
@@ -158,7 +618,7 @@
 </footer>
 
 <button class="back-to-top" aria-label="Back to top">
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
 </button>
 
 <script src="https://cdn.jsdelivr.net/npm/typeit@8.7.1/dist/index.umd.js"></script>
